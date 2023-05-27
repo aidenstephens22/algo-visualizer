@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.board {
+    width: 1375px;
+    height: 625px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1rem;
+}
+
+.cell {
+    width: 25px;
+    height: 25px;
+    border: 1px solid grey;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.weight {
+    font-size: 15px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}

@@ -1,7 +1,7 @@
 import "./App.css";
 import Navbar from "./Navbar";
-import PathfindingPage from "./PathfindingPage";
-import SortingPage from "./SortingPage";
+import PathfindingPage from "./pathfinding/PathfindingPage";
+import SortingPage from "./sorting/SortingPage";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./HomePage";
 
