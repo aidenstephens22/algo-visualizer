@@ -22,7 +22,7 @@ function ControlBar() {
   } = useContext(Context);
 
   return (
-    <div className="container">
+    <>
       <FormControlLabel
         control={<Switch onChange={changeIsWeighted} checked={isWeighted} />}
         label="Weighted Graph"
@@ -68,7 +68,7 @@ function ControlBar() {
       <Button onClick={startAlgorithm} variant="contained">
         Start
       </Button>
-    </div>
+    </>
   );
 }
 

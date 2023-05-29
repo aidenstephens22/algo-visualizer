@@ -1,27 +1,46 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .board {
-    width: 1375px;
-    height: 625px;
-    display: flex;
-    flex-wrap: wrap;
-    margin: 1rem;
+  width: 1375px;
+  height: 625px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1rem;
+  position: absolute;
+  cursor: pointer;
 }
 
 .cell {
-    width: 25px;
-    height: 25px;
-    border: 1px solid grey;
-    display: grid;
-    justify-content: center;
-    align-items: center;
+  width: 25px;
+  height: 25px;
+  border: 1px solid grey;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 .weight {
-    font-size: 15px;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
+  font-size: 15px;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  user-select: none; /* Standard */
+  -moz-user-select: none; /* firefox */
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE */
+}
+
+#start {
+  background-color: blue;
+}
+
+#dest {
+  background-color: red;
+}
+
+#wall {
+  background-color: black;
 }

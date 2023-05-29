@@ -1,18 +1,17 @@
 import React from "react";
 import ControlBar from "./ControlBar";
 import GridView from "./GridView";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Grid from "./Grid";
-import "./PathfindingPage.css"
+import "./PathfindingPage.css";
 
 export const Context = React.createContext();
 
-const numRows = 55;
-const numCols = 25;
-const thisGrid = new Grid(numRows, numCols);
+const NUM_ROWS = 25;
+const NUM_COLS = 55;
+const thisGrid = new Grid(NUM_ROWS, NUM_COLS);
 
 function PathfindingPage() {
-
   const [isWeighted, setWeighted] = useState(true); // weighted/unweighted graph
   const [isMakeWallButtonClicked, setMakeWallButtonClicked] = useState(false); // is make wall button currently clicked
   const [isDeleteWallButtonClicked, setDeleteWallButtonClicked] =
@@ -20,6 +19,14 @@ function PathfindingPage() {
   const [isStartButtonClicked, setIsStartButtonClicked] = useState(false); // is set start button currently clicked
   const [isDestinationButtonClicked, setIsDestinationButtonClicked] =
     useState(false); // is set destination button currently clicked
+
+  const mouseDown = useRef(false); // determines if mouse is clicked down for the purpose of creating walls by dragging mouse
+
+  /*
+   * rerender(!ignored) is a function that rerenders the PathfindingPage
+   * usefult to rerender the app when something is changed in the thisGrid variable
+   */
+  const [ignored, rerender] = useState(true);
 
   // function called when isWeighted is switched
   const changeIsWeighted = () => {
@@ -36,12 +43,16 @@ function PathfindingPage() {
     console.log("Start!");
   };
 
+  // function called when user wants to randomize weights
+  // randomizes weights then re-renders
   const randomizeWeights = () => {
-    console.log("Randomize Weights");
+    thisGrid.randomizeWeights();
+    rerender(!ignored); // I am using this because the grid dispay on the app is controlled by a class I created
   };
 
   const clearBoard = () => {
-    console.log("Clear Board");
+    thisGrid.clearBoard();
+    rerender(!ignored);
   };
 
   const changeIsMakeWallButtonClicked = () => {
@@ -91,12 +102,15 @@ function PathfindingPage() {
         isDestinationButtonClicked,
         randomizeWeights,
         clearBoard,
-        startAlgorithm
+        startAlgorithm,
+        ignored,
+        rerender,
+        mouseDown
       }}
     >
-      <ControlBar />
+      <ControlBar className="controlBar" />
       <div className="gridView">
-      <GridView thisGrid={thisGrid} />
+        <GridView thisGrid={thisGrid} />
       </div>
     </Context.Provider>
   );

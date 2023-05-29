@@ -3,7 +3,14 @@ export default class Cell {
   hasBeenSearched = false;
   isSolvedPath = false;
   weight = Math.floor(Math.random() * 20) + 1; // random integer from 1 to 20
-  isStart = false;
-  isDestination = false;
 
+  randomizeWeight() {
+    this.weight = Math.floor(Math.random() * 20) + 1; // random integer from 1 to 20
+  }
+
+  clearCell() {
+    this.isWall = false;
+    this.hasBeenSearched = false;
+    this.isSolvedPath = false;
+  }
 }

@@ -1,4 +1,9 @@
 .gridView {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
+}
+
+.controlBar {
+  display: grid;
+  justify-content: center;
 }
