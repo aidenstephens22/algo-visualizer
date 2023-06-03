@@ -22,11 +22,11 @@ function PathfindingPage() {
 
   const mouseDown = useRef(false); // determines if mouse is clicked down for the purpose of creating walls by dragging mouse
 
-  /*
-   * rerender(!ignored) is a function that rerenders the PathfindingPage
-   * usefult to rerender the app when something is changed in the thisGrid variable
-   */
-  const [ignored, rerender] = useState(true);
+  function useForceUpdate() {
+    const [value, setValue] = useState(0);
+    return () => setValue((value) => value + 1);
+  }
+  const rerender = useForceUpdate();
 
   // function called when isWeighted is switched
   const changeIsWeighted = () => {
@@ -40,19 +40,23 @@ function PathfindingPage() {
     setMakeWallButtonClicked(false);
     setDeleteWallButtonClicked(false);
 
-    console.log("Start!");
+    thisGrid.dijkstra(
+      [thisGrid.startRow, thisGrid.startCol],
+      [thisGrid.destRow, thisGrid.destCol],
+      rerender
+    );
   };
 
   // function called when user wants to randomize weights
   // randomizes weights then re-renders
   const randomizeWeights = () => {
     thisGrid.randomizeWeights();
-    rerender(!ignored); // I am using this because the grid dispay on the app is controlled by a class I created
+    rerender();
   };
 
   const clearBoard = () => {
     thisGrid.clearBoard();
-    rerender(!ignored);
+    rerender();
   };
 
   const changeIsMakeWallButtonClicked = () => {
@@ -103,9 +107,8 @@ function PathfindingPage() {
         randomizeWeights,
         clearBoard,
         startAlgorithm,
-        ignored,
         rerender,
-        mouseDown
+        mouseDown,
       }}
     >
       <ControlBar className="controlBar" />

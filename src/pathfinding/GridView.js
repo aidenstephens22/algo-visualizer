@@ -2,7 +2,6 @@ import React from "react";
 import "./GridView.css";
 import { Context } from "./PathfindingPage";
 import { useContext } from "react";
-import { useRef } from "react";
 
 const NUM_ROWS = 25;
 const NUM_COLS = 55;
@@ -44,24 +43,18 @@ function CellComponent({ rowNum, colNum, thisGrid }) {
     randomizeWeights,
     clearBoard,
     startAlgorithm,
-    ignored,
     rerender,
-    mouseDown,
+    mouseDown
   } = useContext(Context);
+
 
   function handleClick() {
     if (isStartButtonClicked) {
       thisGrid.setStartCoordinates(rowNum, colNum);
-      rerender(!ignored);
+      rerender();
     } else if (isDestinationButtonClicked) {
       thisGrid.setDestCoordinates(rowNum, colNum);
-      rerender(!ignored);
-    } else if (isMakeWallButtonClicked) {
-      thisGrid.grid[rowNum][colNum].isWall = true;
-      rerender(!ignored);
-    } else if (isDeleteWallButtonClicked) {
-      thisGrid.grid[rowNum][colNum].isWall = false;
-      rerender(!ignored);
+      rerender();
     }
   }
 
@@ -69,19 +62,19 @@ function CellComponent({ rowNum, colNum, thisGrid }) {
     mouseDown.current = true;
     if (isMakeWallButtonClicked && mouseDown.current) {
       thisGrid.grid[rowNum][colNum].isWall = true;
-      rerender(!ignored);
+      rerender();
     } else if (isDeleteWallButtonClicked && mouseDown.current) {
       thisGrid.grid[rowNum][colNum].isWall = false;
-      rerender(!ignored);
+      rerender();
     }
   }
   function handleMouseEnter() {
     if (isMakeWallButtonClicked && mouseDown.current) {
       thisGrid.grid[rowNum][colNum].isWall = true;
-      rerender(!ignored);
+      rerender();
     } else if (isDeleteWallButtonClicked && mouseDown.current) {
       thisGrid.grid[rowNum][colNum].isWall = false;
-      rerender(!ignored);
+      rerender();
     }
   }
   function handleMouseUp() {
@@ -99,11 +92,14 @@ function CellComponent({ rowNum, colNum, thisGrid }) {
   }
 
   let id;
-
   if (rowNum === thisGrid.startRow && colNum === thisGrid.startCol) {
-    id = "start";
+    id = "start"
   } else if (rowNum === thisGrid.destRow && colNum === thisGrid.destCol) {
-    id = "dest";
+    id  = "dest"
+  } else if (thisGrid.grid[rowNum][colNum].isPath) {
+    id = "path";
+  } else if (thisGrid.grid[rowNum][colNum].isCurrent) {
+    id = "current";
   } else if (thisGrid.grid[rowNum][colNum].isWall) {
     id = "wall";
   } else {

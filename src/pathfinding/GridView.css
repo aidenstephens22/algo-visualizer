@@ -41,6 +41,14 @@
   background-color: red;
 }
 
+#current {
+    background-color: yellow
+}
+
+#path {
+    background-color: chartreuse;
+}
+
 #wall {
   background-color: black;
 }
